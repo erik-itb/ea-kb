@@ -1,0 +1,12 @@
+parameters:
+    level: 5
+    paths:
+        - energy-alabama-kb.php
+        - includes/
+    bootstrapFiles:
+        - vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+    ignoreErrors:
+        # WordPress globals
+        - '#Undefined variable: \$wpdb#'
+        - '#Undefined variable: \$wp_query#'
+        - '#Undefined variable: \$post#'

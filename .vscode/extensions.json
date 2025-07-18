@@ -1,0 +1,13 @@
+// Recommended extensions for WordPress/PHP development
+{
+  "recommendations": [
+    "ms-vscode.vscode-json",
+    "bradlc.vscode-tailwindcss",
+    "formulahendry.auto-rename-tag",
+    "ms-vscode.vscode-typescript-next",
+    "bmewburn.vscode-intelephense-client", // PHP IntelliSense
+    "devsense.phptools-vscode", // Advanced PHP support
+    "mrmlnc.vscode-apache", // .htaccess syntax
+    "claudeai.claude-dev" // Claude integration
+  ]
+}

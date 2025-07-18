@@ -1,0 +1,84 @@
+ea-kb/
+├── energy-alabama-kb.php          # Main plugin file (minimal)
+├── README.md                       # Project documentation
+├── CHANGELOG.md                    # Version history
+├── .gitignore                     # Git ignore rules
+├── composer.json                  # PHP dependencies
+├── package.json                   # Node.js dependencies
+├── 
+├── assets/
+│   ├── css/
+│   │   ├── frontend.css           # Frontend styles
+│   │   ├── admin.css              # Admin styles
+│   │   └── components/            # Component-specific CSS
+│   ├── js/
+│   │   ├── frontend.js            # Frontend JavaScript
+│   │   ├── admin.js               # Admin JavaScript
+│   │   └── components/            # Component-specific JS
+│   ├── images/
+│   │   └── icons/                 # Icon library
+│   └── fonts/                     # Custom fonts (if needed)
+├── 
+├── includes/
+│   ├── class-plugin.php           # Main plugin class
+│   ├── class-activator.php        # Plugin activation logic
+│   ├── class-deactivator.php      # Plugin deactivation logic
+│   ├── class-loader.php           # Hook loader
+│   │
+│   ├── core/                      # Core functionality
+│   │   ├── class-post-types.php   # Custom post types
+│   │   ├── class-taxonomies.php   # Custom taxonomies
+│   │   ├── class-meta-fields.php  # Meta field definitions
+│   │   ├── class-template-manager.php # Template routing
+│   │   └── class-search-handler.php   # Search functionality
+│   │
+│   ├── admin/                     # Admin functionality
+│   │   ├── class-admin.php        # Admin initialization
+│   │   ├── class-meta-boxes.php   # Meta box definitions
+│   │   ├── class-settings.php     # Plugin settings
+│   │   ├── class-bulk-import.php  # Content import tools
+│   │   └── class-icon-manager.php # Icon management
+│   │
+│   ├── frontend/                  # Frontend functionality
+│   │   ├── class-frontend.php     # Frontend initialization
+│   │   ├── class-shortcodes.php   # Shortcode definitions
+│   │   └── class-ajax-handlers.php # AJAX request handlers
+│   │
+│   ├── utils/                     # Utility functions
+│   │   ├── class-helpers.php      # Helper functions
+│   │   ├── class-sanitizer.php    # Data sanitization
+│   │   └── class-validator.php    # Data validation
+│   │
+│   └── elementor/                 # Future Elementor integration
+│       ├── class-elementor-init.php
+│       └── widgets/
+│           ├── class-kb-article-widget.php
+│           └── class-docket-widget.php
+├── 
+├── templates/                     # PHP template files
+│   ├── archive-kb-article.php     # Article archive
+│   ├── single-kb-article.php      # Single article
+│   ├── single-docket.php          # Single docket
+│   ├── taxonomy-kb.php            # Taxonomy pages
+│   │
+│   └── parts/                     # Template parts
+│       ├── content-kb-article.php
+│       ├── content-docket.php
+│       ├── kb-search-form.php
+│       ├── kb-article-list.php
+│       ├── docket-accordion.php
+│       └── resource-embed.php
+├── 
+├── languages/                     # Internationalization
+│   ├── energy-alabama-kb.pot      # Translation template
+│   └── es_ES/                     # Spanish translations
+│       └── energy-alabama-kb.po
+├── 
+├── tests/                         # Unit tests (future)
+│   ├── phpunit.xml
+│   └── test-cases/
+└── 
+└── docs/                          # Documentation
+    ├── installation.md
+    ├── configuration.md
+    └── development.md
