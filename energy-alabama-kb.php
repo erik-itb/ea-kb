@@ -2,56 +2,60 @@
 /**
  * Plugin Name: Energy Alabama Knowledge Base
  * Plugin URI: https://energyalabama.org
- * Description: A comprehensive knowledge base system for Energy Alabama with custom post types, taxonomies, and search functionality.
+ * Description: Comprehensive knowledge base system for clean energy resources, dockets, and educational materials.
  * Version: 1.0.0
- * Author: Energy Alabama
+ * Author: Your Name
  * License: GPL v2 or later
  * Text Domain: energy-alabama-kb
  * Domain Path: /languages
+ * 
+ * @package Energy_Alabama_KB
  */
 
-// If this file is called directly, abort.
-if (!defined('WPINC')) {
-    die;
+// Prevent direct access
+if (!defined('ABSPATH')) {
+    exit;
+}
+
+// Define plugin constants
+define('EAKB_VERSION', '1.0.0');
+define('EAKB_PLUGIN_FILE', __FILE__);
+define('EAKB_PLUGIN_DIR', plugin_dir_path(__FILE__));
+define('EAKB_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('EAKB_PLUGIN_BASENAME', plugin_basename(__FILE__));
+
+/**
+ * Load core plugin class
+ */
+require_once EAKB_PLUGIN_DIR . 'includes/class-plugin.php';
+
+/**
+ * Initialize the plugin
+ */
+function run_energy_alabama_kb() {
+    $plugin = new Energy_Alabama_KB();
+    $plugin->run();
 }
 
 /**
- * Currently plugin version.
- */
-define('ENERGY_ALABAMA_KB_VERSION', '1.0.0');
-define('ENERGY_ALABAMA_KB_PLUGIN_DIR', plugin_dir_path(__FILE__));
-define('ENERGY_ALABAMA_KB_PLUGIN_URL', plugin_dir_url(__FILE__));
-
-/**
- * The code that runs during plugin activation.
+ * Plugin activation hook
  */
 function activate_energy_alabama_kb() {
-    require_once ENERGY_ALABAMA_KB_PLUGIN_DIR . 'includes/class-activator.php';
+    require_once EAKB_PLUGIN_DIR . 'includes/class-activator.php';
     Energy_Alabama_KB_Activator::activate();
 }
 
 /**
- * The code that runs during plugin deactivation.
+ * Plugin deactivation hook
  */
 function deactivate_energy_alabama_kb() {
-    require_once ENERGY_ALABAMA_KB_PLUGIN_DIR . 'includes/class-deactivator.php';
+    require_once EAKB_PLUGIN_DIR . 'includes/class-deactivator.php';
     Energy_Alabama_KB_Deactivator::deactivate();
 }
 
+// Register activation and deactivation hooks
 register_activation_hook(__FILE__, 'activate_energy_alabama_kb');
 register_deactivation_hook(__FILE__, 'deactivate_energy_alabama_kb');
 
-/**
- * The core plugin class that is used to define internationalization,
- * admin-specific hooks, and public-facing site hooks.
- */
-require ENERGY_ALABAMA_KB_PLUGIN_DIR . 'includes/class-plugin.php';
-
-/**
- * Begins execution of the plugin.
- */
-function run_energy_alabama_kb() {
-    $plugin = new Energy_Alabama_KB_Plugin();
-    $plugin->run();
-}
+// Start the plugin
 run_energy_alabama_kb();
