@@ -97,12 +97,12 @@ class Energy_Alabama_KB {
      * Register all of the hooks related to the admin area functionality
      */
     private function define_admin_hooks() {
-        // Post types and taxonomies
+        // Post types and taxonomies - instantiate the classes so their constructors run
         $post_types = new Energy_Alabama_KB_Post_Types();
         $taxonomies = new Energy_Alabama_KB_Taxonomies();
         
-        $this->loader->add_action('init', $post_types, 'register_post_types');
-        $this->loader->add_action('init', $taxonomies, 'register_taxonomies');
+        // The classes handle their own hook registration in their constructors
+        // No need to manually add hooks here since they're added in __construct()
 
         // TODO: Add these hooks as we create the classes
         /*

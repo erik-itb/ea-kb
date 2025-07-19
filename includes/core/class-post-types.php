@@ -166,12 +166,24 @@ class Energy_Alabama_KB_Post_Types {
      * Add docket submenu items manually
      */
     public function add_docket_submenu() {
+        // Add the "Add New Docket" submenu item
         add_submenu_page(
             'edit.php?post_type=kb_article',
             __('Add New Docket', 'energy-alabama-kb'),
             __('Add New Docket', 'energy-alabama-kb'),
             'edit_posts',
-            'post-new.php?post_type=docket'
+            'post-new.php?post_type=docket',
+            '',
+            1 // Position it right after "Add New KB Article"
+        );
+        
+        // Add jurisdictions submenu
+        add_submenu_page(
+            'edit.php?post_type=kb_article',
+            __('Jurisdictions', 'energy-alabama-kb'),
+            __('Jurisdictions', 'energy-alabama-kb'),
+            'manage_categories',
+            'edit-tags.php?taxonomy=docket_jurisdiction&post_type=docket'
         );
     }
 
