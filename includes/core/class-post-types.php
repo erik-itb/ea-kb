@@ -21,7 +21,7 @@ class Energy_Alabama_KB_Post_Types {
      */
     public function __construct() {
         add_action('init', array($this, 'register_post_types'));
-        add_action('admin_menu', array($this, 'add_docket_submenu'));
+        add_action('admin_menu', array($this, 'add_docket_submenu'), 999); // Run late to ensure proper order
         add_filter('post_updated_messages', array($this, 'updated_messages'));
     }
 
@@ -186,18 +186,18 @@ class Energy_Alabama_KB_Post_Types {
      * Add docket submenu items manually
      */
     public function add_docket_submenu() {
-        // Add the "Add New Docket" submenu item
+        global $submenu;
+        
+        // Add the "Add New Docket" submenu item after "All Dockets"
         add_submenu_page(
             'edit.php?post_type=kb_article',
             __('Add New Docket', 'energy-alabama-kb'),
             __('Add New Docket', 'energy-alabama-kb'),
             'edit_posts',
-            'post-new.php?post_type=docket',
-            '',
-            1 // Position it right after "Add New KB Article"
+            'post-new.php?post_type=docket'
         );
         
-        // Add jurisdictions submenu
+        // Add jurisdictions submenu at the end
         add_submenu_page(
             'edit.php?post_type=kb_article',
             __('Jurisdictions', 'energy-alabama-kb'),
@@ -205,6 +205,38 @@ class Energy_Alabama_KB_Post_Types {
             'manage_categories',
             'edit-tags.php?taxonomy=docket_jurisdiction&post_type=docket'
         );
+        
+        // Reorder the submenu items to get the desired order
+        if (isset($submenu['edit.php?post_type=kb_article'])) {
+            $kb_submenu = $submenu['edit.php?post_type=kb_article'];
+            $reordered = array();
+            
+            // Expected order based on WordPress default positions:
+            // All KB Articles (5)
+            // Add New KB Article (10) 
+            // Categories (15)
+            // Tags (16)
+            // All Dockets (appears automatically)
+            // Add New Docket (we'll position this)
+            // Jurisdictions (we'll position this)
+            
+            foreach ($kb_submenu as $position => $item) {
+                if (strpos($item[2], 'post-new.php?post_type=docket') !== false) {
+                    // Move "Add New Docket" to position after "All Dockets"
+                    $reordered[25] = $item;
+                } elseif (strpos($item[2], 'edit-tags.php?taxonomy=docket_jurisdiction') !== false) {
+                    // Move "Jurisdictions" to the end
+                    $reordered[30] = $item;
+                } else {
+                    // Keep other items in their original positions
+                    $reordered[$position] = $item;
+                }
+            }
+            
+            // Sort by position and reassign
+            ksort($reordered);
+            $submenu['edit.php?post_type=kb_article'] = $reordered;
+        }
     }
 
     /**
