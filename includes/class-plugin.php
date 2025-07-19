@@ -60,25 +60,27 @@ class Energy_Alabama_KB {
         // The class responsible for defining internationalization functionality
         require_once EAKB_PLUGIN_DIR . 'includes/class-i18n.php';
 
-        // Core functionality
+        // Core functionality (only load files that exist)
         require_once EAKB_PLUGIN_DIR . 'includes/core/class-post-types.php';
         require_once EAKB_PLUGIN_DIR . 'includes/core/class-taxonomies.php';
-        require_once EAKB_PLUGIN_DIR . 'includes/core/class-meta-fields.php';
-        require_once EAKB_PLUGIN_DIR . 'includes/core/class-template-manager.php';
-        require_once EAKB_PLUGIN_DIR . 'includes/core/class-search-handler.php';
 
-        // Admin functionality
-        require_once EAKB_PLUGIN_DIR . 'includes/admin/class-admin.php';
-        require_once EAKB_PLUGIN_DIR . 'includes/admin/class-meta-boxes.php';
-        require_once EAKB_PLUGIN_DIR . 'includes/admin/class-settings.php';
-        require_once EAKB_PLUGIN_DIR . 'includes/admin/class-icon-manager.php';
+        // TODO: Load these as we create them
+        // require_once EAKB_PLUGIN_DIR . 'includes/core/class-meta-fields.php';
+        // require_once EAKB_PLUGIN_DIR . 'includes/core/class-template-manager.php';
+        // require_once EAKB_PLUGIN_DIR . 'includes/core/class-search-handler.php';
 
-        // Frontend functionality
-        require_once EAKB_PLUGIN_DIR . 'includes/frontend/class-frontend.php';
-        require_once EAKB_PLUGIN_DIR . 'includes/frontend/class-ajax-handlers.php';
+        // TODO: Admin functionality (will create these next)
+        // require_once EAKB_PLUGIN_DIR . 'includes/admin/class-admin.php';
+        // require_once EAKB_PLUGIN_DIR . 'includes/admin/class-meta-boxes.php';
+        // require_once EAKB_PLUGIN_DIR . 'includes/admin/class-settings.php';
+        // require_once EAKB_PLUGIN_DIR . 'includes/admin/class-icon-manager.php';
 
-        // Utilities
-        require_once EAKB_PLUGIN_DIR . 'includes/utils/class-helpers.php';
+        // TODO: Frontend functionality (will create these next)
+        // require_once EAKB_PLUGIN_DIR . 'includes/frontend/class-frontend.php';
+        // require_once EAKB_PLUGIN_DIR . 'includes/frontend/class-ajax-handlers.php';
+
+        // TODO: Utilities (will create these next)
+        // require_once EAKB_PLUGIN_DIR . 'includes/utils/class-helpers.php';
 
         $this->loader = new Energy_Alabama_KB_Loader();
     }
@@ -95,18 +97,20 @@ class Energy_Alabama_KB {
      * Register all of the hooks related to the admin area functionality
      */
     private function define_admin_hooks() {
-        // Core admin functionality
-        $plugin_admin = new Energy_Alabama_KB_Admin($this->get_plugin_name(), $this->get_version());
-        
-        $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
-        $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
-
         // Post types and taxonomies
         $post_types = new Energy_Alabama_KB_Post_Types();
         $taxonomies = new Energy_Alabama_KB_Taxonomies();
         
         $this->loader->add_action('init', $post_types, 'register_post_types');
         $this->loader->add_action('init', $taxonomies, 'register_taxonomies');
+
+        // TODO: Add these hooks as we create the classes
+        /*
+        // Core admin functionality
+        $plugin_admin = new Energy_Alabama_KB_Admin($this->get_plugin_name(), $this->get_version());
+        
+        $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
+        $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 
         // Meta boxes and fields
         $meta_boxes = new Energy_Alabama_KB_Meta_Boxes();
@@ -124,12 +128,15 @@ class Energy_Alabama_KB {
         // Icon manager
         $icon_manager = new Energy_Alabama_KB_Icon_Manager();
         $this->loader->add_action('wp_ajax_eakb_get_icons', $icon_manager, 'ajax_get_icons');
+        */
     }
 
     /**
      * Register all of the hooks related to the public-facing functionality
      */
     private function define_public_hooks() {
+        // TODO: Add these hooks as we create the classes
+        /*
         // Frontend functionality
         $plugin_public = new Energy_Alabama_KB_Frontend($this->get_plugin_name(), $this->get_version());
         
@@ -150,6 +157,7 @@ class Energy_Alabama_KB {
         $ajax_handlers = new Energy_Alabama_KB_Ajax_Handlers();
         $this->loader->add_action('wp_ajax_eakb_load_resources', $ajax_handlers, 'load_resources');
         $this->loader->add_action('wp_ajax_nopriv_eakb_load_resources', $ajax_handlers, 'load_resources');
+        */
     }
 
     /**
