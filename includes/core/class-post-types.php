@@ -17,6 +17,26 @@ if (!defined('ABSPATH')) {
 class Energy_Alabama_KB_Post_Types {
 
     /**
+     * Initialize the class
+     */
+    public function __construct() {
+        add_action('init', array($this, 'register_post_types'));
+        add_action('admin_menu', array($this, 'add_docket_submenu'));
+        add_filter('post_updated_messages', array($this, 'updated_messages'));
+    }
+
+    /**
+     * Get instance (singleton pattern)
+     */
+    public static function get_instance() {
+        static $instance = null;
+        if (null === $instance) {
+            $instance = new self();
+        }
+        return $instance;
+    }
+
+    /**
      * Register all custom post types
      */
     public function register_post_types() {

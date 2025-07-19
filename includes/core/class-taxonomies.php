@@ -17,6 +17,24 @@ if (!defined('ABSPATH')) {
 class Energy_Alabama_KB_Taxonomies {
 
     /**
+     * Initialize the class
+     */
+    public function __construct() {
+        add_action('init', array($this, 'register_taxonomies'));
+    }
+
+    /**
+     * Get instance (singleton pattern)
+     */
+    public static function get_instance() {
+        static $instance = null;
+        if (null === $instance) {
+            $instance = new self();
+        }
+        return $instance;
+    }
+
+    /**
      * Register all custom taxonomies
      */
     public function register_taxonomies() {
