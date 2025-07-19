@@ -130,6 +130,9 @@ class Energy_Alabama_KB_Post_Types {
             'publicly_queryable' => true,
             'show_ui'            => true,
             'show_in_menu'       => 'edit.php?post_type=kb_article',
+            'show_in_admin_bar'  => true,
+            'show_in_nav_menus'  => true,
+            'can_export'         => true,
             'query_var'          => true,
             'rewrite'            => array(
                 'slug'       => 'docket',
@@ -157,6 +160,19 @@ class Energy_Alabama_KB_Post_Types {
         );
 
         register_post_type('docket', $args);
+    }
+
+    /**
+     * Add docket submenu items manually
+     */
+    public function add_docket_submenu() {
+        add_submenu_page(
+            'edit.php?post_type=kb_article',
+            __('Add New Docket', 'energy-alabama-kb'),
+            __('Add New Docket', 'energy-alabama-kb'),
+            'edit_posts',
+            'post-new.php?post_type=docket'
+        );
     }
 
     /**
