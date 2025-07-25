@@ -23,6 +23,9 @@ class Energy_Alabama_KB_Post_Types {
         add_action('init', array($this, 'register_post_types'));
         add_action('admin_menu', array($this, 'add_docket_submenu'), 999); // Run late to ensure proper order
         add_filter('post_updated_messages', array($this, 'updated_messages'));
+        
+        // Check if we need to flush rewrite rules
+        add_action('init', array($this, 'maybe_flush_rewrite_rules'));
     }
 
     /**
@@ -87,7 +90,7 @@ class Energy_Alabama_KB_Post_Types {
                 'with_front' => false
             ),
             'capability_type'    => 'post',
-            'has_archive'        => 'knowledge-base',
+            'has_archive'        => 'kb-articles', // Changed from 'knowledge-base' to avoid conflict
             'hierarchical'       => false,
             'menu_position'      => 20,
             'menu_icon'          => 'dashicons-book-alt',
@@ -236,6 +239,16 @@ class Energy_Alabama_KB_Post_Types {
             // Sort by position and reassign
             ksort($reordered);
             $submenu['edit.php?post_type=kb_article'] = $reordered;
+        }
+    }
+
+    /**
+     * Maybe flush rewrite rules if needed
+     */
+    public function maybe_flush_rewrite_rules() {
+        if (get_option('eakb_flush_rewrite_rules')) {
+            flush_rewrite_rules();
+            delete_option('eakb_flush_rewrite_rules');
         }
     }
 

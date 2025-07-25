@@ -171,6 +171,9 @@ class Energy_Alabama_KB_Activator {
      */
     private static function flush_rewrite_rules() {
         flush_rewrite_rules();
+        
+        // Also update option to track that we need to flush rules
+        update_option('eakb_flush_rewrite_rules', true);
     }
 
     /**
