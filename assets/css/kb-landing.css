@@ -12,17 +12,25 @@
     padding: 0 20px;
 }
 
-/* Hero Section */
+/* Hero Section - Full Width with Bottom Right Corner */
 .eakb-hero {
     background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
     color: white;
     padding: 60px 0;
     text-align: center;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    border-radius: 0 0 60px 0; /* Bottom right corner radius */
 }
 
 .eakb-hero-content {
     max-width: 600px;
     margin: 0 auto;
+    padding: 0 20px; /* Add padding since hero is full width */
 }
 
 .eakb-hero-title {
@@ -39,7 +47,7 @@
     line-height: 1.6;
 }
 
-/* Search Form */
+/* Search Form - Updated Button Design */
 .eakb-search-container {
     position: relative;
     max-width: 500px;
@@ -76,10 +84,18 @@
     color: white;
     cursor: pointer;
     transition: background-color 0.2s;
+    border-radius: 0 12px 12px 0; /* Match the container radius */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .eakb-search-button:hover {
     background: #1d4ed8;
+}
+
+.eakb-search-button svg {
+    stroke-width: 2.5; /* Make the search icon a bit bolder */
 }
 
 .eakb-search-results {
@@ -370,66 +386,71 @@
 @media (max-width: 768px) {
     .eakb-hero {
         padding: 40px 0;
+        border-radius: 0 0 40px 0; /* Smaller corner radius on mobile */
     }
-
+    
     .eakb-hero-title {
         font-size: 2rem;
     }
-
+    
     .eakb-hero-description {
         font-size: 1.1rem;
     }
-
+    
     .eakb-section-title {
         font-size: 1.75rem;
         margin-bottom: 2rem;
     }
-
+    
     .eakb-categories,
     .eakb-recent-articles,
     .eakb-quick-links {
         padding: 60px 0;
     }
-
+    
     .eakb-category-grid,
     .eakb-articles-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
-
+    
     .eakb-quick-links-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
-
+    
     .eakb-container {
         padding: 0 15px;
     }
-
+    
     .eakb-search-input {
         font-size: 1rem;
         padding: 14px 16px;
     }
-
+    
     .eakb-search-button {
         padding: 14px 16px;
     }
 }
 
 @media (max-width: 480px) {
+    .eakb-hero {
+        border-radius: 0 0 30px 0; /* Even smaller corner radius on small mobile */
+    }
+    
     .eakb-hero-title {
         font-size: 1.75rem;
     }
-
+    
     .eakb-hero-description {
         font-size: 1rem;
     }
-
+    
     .eakb-category-card,
     .eakb-article-content {
         padding: 1.25rem;
     }
-
+    
     .eakb-quick-link {
         padding: 1.25rem;
     }
