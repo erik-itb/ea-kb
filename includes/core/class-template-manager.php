@@ -44,6 +44,13 @@ class Energy_Alabama_KB_Template_Manager {
 
         // Handle knowledge base landing page
         if (is_page() && $post && $post->post_name === 'knowledge-base') {
+            // Try simple template first for debugging
+            $custom_template = $this->get_template('page-knowledge-base-simple.php');
+            if ($custom_template) {
+                return $custom_template;
+            }
+            
+            // Fallback to full template
             $custom_template = $this->get_template('page-knowledge-base.php');
             if ($custom_template) {
                 return $custom_template;
