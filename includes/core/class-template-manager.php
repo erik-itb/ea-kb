@@ -43,10 +43,19 @@ class Energy_Alabama_KB_Template_Manager {
      * Load custom templates for our post types and pages
      */
     public function load_custom_templates($template) {
-        global $post;
+        global $post, $wp_query;
 
         // Direct debug - write to our custom log file
         file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Template filter triggered\n", FILE_APPEND);
+        file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - is_page(): " . (is_page() ? 'true' : 'false') . "\n", FILE_APPEND);
+        file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - is_404(): " . (is_404() ? 'true' : 'false') . "\n", FILE_APPEND);
+        file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Request URI: " . $_SERVER['REQUEST_URI'] . "\n", FILE_APPEND);
+        
+        if ($post) {
+            file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Post exists: " . $post->post_name . " (ID: " . $post->ID . ")\n", FILE_APPEND);
+        } else {
+            file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - No post object found\n", FILE_APPEND);
+        }
         
         if (is_page() && $post) {
             file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Page detected: " . $post->post_name . "\n", FILE_APPEND);
