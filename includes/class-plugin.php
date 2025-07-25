@@ -63,10 +63,10 @@ class Energy_Alabama_KB {
         // Core functionality (only load files that exist)
         require_once EAKB_PLUGIN_DIR . 'includes/core/class-post-types.php';
         require_once EAKB_PLUGIN_DIR . 'includes/core/class-taxonomies.php';
+        require_once EAKB_PLUGIN_DIR . 'includes/core/class-template-manager.php';
 
         // TODO: Load these as we create them
         // require_once EAKB_PLUGIN_DIR . 'includes/core/class-meta-fields.php';
-        // require_once EAKB_PLUGIN_DIR . 'includes/core/class-template-manager.php';
         // require_once EAKB_PLUGIN_DIR . 'includes/core/class-search-handler.php';
 
         // TODO: Admin functionality (will create these next)
@@ -132,6 +132,9 @@ class Energy_Alabama_KB {
      * Register all of the hooks related to the public-facing functionality
      */
     private function define_public_hooks() {
+        // Template manager
+        Energy_Alabama_KB_Template_Manager::get_instance();
+
         // TODO: Add these hooks as we create the classes
         /*
         // Frontend functionality
@@ -139,11 +142,6 @@ class Energy_Alabama_KB {
         
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
         $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
-
-        // Template manager
-        $template_manager = new Energy_Alabama_KB_Template_Manager();
-        $this->loader->add_filter('template_include', $template_manager, 'load_custom_templates');
-        $this->loader->add_action('wp_head', $template_manager, 'add_structured_data');
 
         // Search functionality
         $search_handler = new Energy_Alabama_KB_Search_Handler();
