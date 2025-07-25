@@ -38,6 +38,7 @@
     font-weight: 700;
     margin-bottom: 1rem;
     line-height: 1.2;
+    color: white;
 }
 
 .eakb-hero-description {
@@ -386,7 +387,7 @@
 @media (max-width: 768px) {
     .eakb-hero {
         padding: 40px 0;
-        border-radius: 0 0 40px 0; /* Smaller corner radius on mobile */
+        border-radius: 0 0 80px 0; /* Smaller corner radius on mobile */
     }
     
     .eakb-hero-title {
@@ -435,7 +436,7 @@
 
 @media (max-width: 480px) {
     .eakb-hero {
-        border-radius: 0 0 30px 0; /* Even smaller corner radius on small mobile */
+        border-radius: 0 0 60px 0; /* Even smaller corner radius on small mobile */
     }
     
     .eakb-hero-title {

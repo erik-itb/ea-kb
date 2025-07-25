@@ -60,7 +60,7 @@ $helpers = new EAKB_Landing_Template_Helpers();
         <div class="eakb-container">
             <div class="eakb-hero-content">
                 <h1 class="eakb-hero-title">
-                    <?php _e('Energy Alabama Knowledge Base', 'energy-alabama-kb'); ?>
+                    <?php _e('Energy Alabama<br>Knowledge Base', 'energy-alabama-kb'); ?>
                 </h1>
                 <p class="eakb-hero-description">
                     <?php _e('Find comprehensive information about clean energy, educational resources, and regulatory documents.', 'energy-alabama-kb'); ?>
