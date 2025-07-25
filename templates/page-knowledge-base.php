@@ -13,34 +13,36 @@ if (!defined('ABSPATH')) {
 
 get_header();
 
-// Helper class for icons
-class EAKB_Template_Helpers {
-    
-    public function get_category_icon($slug) {
-        $icons = array(
-            'clean-energy-101' => 'energy',
-            'educator-resources' => 'education',
-            'legal-regulatory' => 'legal',
-            'presentation-library' => 'presentation',
-            'faqs' => 'help'
-        );
+// Helper class for icons - only declare if it doesn't exist
+if (!class_exists('EAKB_Landing_Template_Helpers')) {
+    class EAKB_Landing_Template_Helpers {
         
-        return isset($icons[$slug]) ? $icons[$slug] : 'default';
-    }
-    
-    public function render_category_icon($slug) {
-        $icon_type = $this->get_category_icon($slug);
+        public function get_category_icon($slug) {
+            $icons = array(
+                'clean-energy-101' => 'energy',
+                'educator-resources' => 'education',
+                'legal-regulatory' => 'legal',
+                'presentation-library' => 'presentation',
+                'faqs' => 'help'
+            );
+            
+            return isset($icons[$slug]) ? $icons[$slug] : 'default';
+        }
         
-        $icons = array(
-            'energy' => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>',
-            'education' => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>',
-            'legal' => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14,2 14,8 20,8"></polyline></svg>',
-            'presentation' => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="12" rx="2"></rect><path d="M12 16v4"></path><path d="M8 20h8"></path></svg>',
-            'help' => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>',
-            'default' => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>'
-        );
-        
-        return isset($icons[$icon_type]) ? $icons[$icon_type] : $icons['default'];
+        public function render_category_icon($slug) {
+            $icon_type = $this->get_category_icon($slug);
+            
+            $icons = array(
+                'energy' => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>',
+                'education' => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>',
+                'legal' => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14,2 14,8 20,8"></polyline></svg>',
+                'presentation' => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="12" rx="2"></rect><path d="M12 16v4"></path><path d="M8 20h8"></path></svg>',
+                'help' => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>',
+                'default' => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>'
+            );
+            
+            return isset($icons[$icon_type]) ? $icons[$icon_type] : $icons['default'];
+        }
     }
 }
 
@@ -48,7 +50,7 @@ class EAKB_Template_Helpers {
 $template_manager = Energy_Alabama_KB_Template_Manager::get_instance();
 $categories = $template_manager->get_kb_categories();
 $recent_articles = $template_manager->get_recent_articles(6);
-$helpers = new EAKB_Template_Helpers();
+$helpers = new EAKB_Landing_Template_Helpers();
 ?>
 
 <div class="eakb-landing-page">
