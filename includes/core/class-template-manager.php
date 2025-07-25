@@ -61,23 +61,25 @@ class Energy_Alabama_KB_Template_Manager {
             file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Page detected: " . $post->post_name . "\n", FILE_APPEND);
         }
 
-        // TEMPORARILY DISABLE our custom template to test
-        /*
+        // NOW ENABLE our custom template since page detection is working
         // Handle knowledge base landing page
         if (is_page() && $post && $post->post_name === 'knowledge-base') {
+            file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Loading custom KB template\n", FILE_APPEND);
+            
             // Try simple template first for debugging
             $custom_template = $this->get_template('page-knowledge-base-simple.php');
             if ($custom_template) {
+                file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Using simple template: " . $custom_template . "\n", FILE_APPEND);
                 return $custom_template;
             }
             
             // Fallback to full template
             $custom_template = $this->get_template('page-knowledge-base.php');
             if ($custom_template) {
+                file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Using full template: " . $custom_template . "\n", FILE_APPEND);
                 return $custom_template;
             }
         }
-        */
 
         // Handle single KB article
         if (is_singular('kb_article')) {
