@@ -20,6 +20,9 @@ class Energy_Alabama_KB_Template_Manager {
      * Initialize the class
      */
     public function __construct() {
+        // Direct debug - write to a custom log file to bypass WordPress logging issues
+        file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Template Manager initialized\n", FILE_APPEND);
+        
         add_filter('template_include', array($this, 'load_custom_templates'));
         add_action('wp_head', array($this, 'add_structured_data'));
         add_action('wp_enqueue_scripts', array($this, 'enqueue_template_assets'));
@@ -42,6 +45,15 @@ class Energy_Alabama_KB_Template_Manager {
     public function load_custom_templates($template) {
         global $post;
 
+        // Direct debug - write to our custom log file
+        file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Template filter triggered\n", FILE_APPEND);
+        
+        if (is_page() && $post) {
+            file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Page detected: " . $post->post_name . "\n", FILE_APPEND);
+        }
+
+        // TEMPORARILY DISABLE our custom template to test
+        /*
         // Handle knowledge base landing page
         if (is_page() && $post && $post->post_name === 'knowledge-base') {
             // Try simple template first for debugging
@@ -56,6 +68,7 @@ class Energy_Alabama_KB_Template_Manager {
                 return $custom_template;
             }
         }
+        */
 
         // Handle single KB article
         if (is_singular('kb_article')) {
