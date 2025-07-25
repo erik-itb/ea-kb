@@ -66,17 +66,41 @@ class Energy_Alabama_KB_Template_Manager {
         if (is_page() && $post && $post->post_name === 'knowledge-base') {
             file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Loading custom KB template\n", FILE_APPEND);
             
-            // Try simple template first for debugging
+            // Try full template first now that we know it works
+            $custom_template = $this->get_template('page-knowledge-base.php');
+            if ($custom_template) {
+                file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Found full template: " . $custom_template . "\n", FILE_APPEND);
+                
+                // Test if the template file is readable and has no syntax errors
+                if (is_readable($custom_template)) {
+                    file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Template is readable\n", FILE_APPEND);
+                    
+                    // Check for basic PHP syntax by trying to include it with output buffering
+                    ob_start();
+                    $template_error = null;
+                    
+                    try {
+                        // Use include to test for syntax errors
+                        $result = include $custom_template;
+                        $template_output = ob_get_contents();
+                        file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Template included successfully\n", FILE_APPEND);
+                        ob_end_clean();
+                        return $custom_template;
+                    } catch (Exception $e) {
+                        ob_end_clean();
+                        file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Template error: " . $e->getMessage() . "\n", FILE_APPEND);
+                    }
+                } else {
+                    file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Template not readable\n", FILE_APPEND);
+                }
+            } else {
+                file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Full template not found\n", FILE_APPEND);
+            }
+            
+            // Fallback to simple template
             $custom_template = $this->get_template('page-knowledge-base-simple.php');
             if ($custom_template) {
                 file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Using simple template: " . $custom_template . "\n", FILE_APPEND);
-                return $custom_template;
-            }
-            
-            // Fallback to full template
-            $custom_template = $this->get_template('page-knowledge-base.php');
-            if ($custom_template) {
-                file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Using full template: " . $custom_template . "\n", FILE_APPEND);
                 return $custom_template;
             }
         }
