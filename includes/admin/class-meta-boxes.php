@@ -17,6 +17,11 @@ if (!defined('ABSPATH')) {
 class Energy_Alabama_KB_Meta_Boxes {
 
     /**
+     * Singleton instance
+     */
+    private static $instance = null;
+
+    /**
      * Meta fields instance
      */
     private $meta_fields;

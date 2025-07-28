@@ -17,6 +17,11 @@ if (!defined('ABSPATH')) {
 class Energy_Alabama_KB_Meta_Fields {
 
     /**
+     * Singleton instance
+     */
+    private static $instance = null;
+
+    /**
      * Initialize the class
      */
     public function __construct() {
