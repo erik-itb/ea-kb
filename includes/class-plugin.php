@@ -60,26 +60,22 @@ class Energy_Alabama_KB {
         // The class responsible for defining internationalization functionality
         require_once EAKB_PLUGIN_DIR . 'includes/class-i18n.php';
 
-        // Core functionality (only load files that exist)
+        // Core functionality
         require_once EAKB_PLUGIN_DIR . 'includes/core/class-post-types.php';
         require_once EAKB_PLUGIN_DIR . 'includes/core/class-taxonomies.php';
         require_once EAKB_PLUGIN_DIR . 'includes/core/class-template-manager.php';
+        require_once EAKB_PLUGIN_DIR . 'includes/core/class-meta-fields.php';
+
+        // Admin functionality 
+        require_once EAKB_PLUGIN_DIR . 'includes/admin/class-meta-boxes.php';
 
         // TODO: Load these as we create them
-        // require_once EAKB_PLUGIN_DIR . 'includes/core/class-meta-fields.php';
         // require_once EAKB_PLUGIN_DIR . 'includes/core/class-search-handler.php';
-
-        // TODO: Admin functionality (will create these next)
         // require_once EAKB_PLUGIN_DIR . 'includes/admin/class-admin.php';
-        // require_once EAKB_PLUGIN_DIR . 'includes/admin/class-meta-boxes.php';
         // require_once EAKB_PLUGIN_DIR . 'includes/admin/class-settings.php';
         // require_once EAKB_PLUGIN_DIR . 'includes/admin/class-icon-manager.php';
-
-        // TODO: Frontend functionality (will create these next)
         // require_once EAKB_PLUGIN_DIR . 'includes/frontend/class-frontend.php';
         // require_once EAKB_PLUGIN_DIR . 'includes/frontend/class-ajax-handlers.php';
-
-        // TODO: Utilities (will create these next)
         // require_once EAKB_PLUGIN_DIR . 'includes/utils/class-helpers.php';
 
         $this->loader = new Energy_Alabama_KB_Loader();
@@ -101,6 +97,10 @@ class Energy_Alabama_KB {
         Energy_Alabama_KB_Post_Types::get_instance();
         Energy_Alabama_KB_Taxonomies::get_instance();
 
+        // Meta fields and boxes
+        Energy_Alabama_KB_Meta_Fields::get_instance();
+        Energy_Alabama_KB_Meta_Boxes::get_instance();
+
         // TODO: Add these hooks as we create the classes
         /*
         // Core admin functionality
@@ -108,14 +108,6 @@ class Energy_Alabama_KB {
         
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
         $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
-
-        // Meta boxes and fields
-        $meta_boxes = new Energy_Alabama_KB_Meta_Boxes();
-        $meta_fields = new Energy_Alabama_KB_Meta_Fields();
-        
-        $this->loader->add_action('add_meta_boxes', $meta_boxes, 'add_meta_boxes');
-        $this->loader->add_action('save_post', $meta_boxes, 'save_meta_boxes');
-        $this->loader->add_action('init', $meta_fields, 'register_meta_fields');
 
         // Settings page
         $settings = new Energy_Alabama_KB_Settings();
