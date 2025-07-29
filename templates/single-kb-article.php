@@ -52,11 +52,14 @@ function eakb_get_resource_icon($type) {
 /* Updated Hero Section - Full Width with Background Image */
 .eakb-article-hero {
     position: relative;
+    width: 100%;
     min-height: 70vh;
     display: flex;
     align-items: center;
     overflow: hidden;
     background: #1a1a1a; /* Fallback color */
+    border-radius: 0px 0px 120px 0px;
+    padding: 150px 0;
 }
 
 .eakb-hero-background {
@@ -83,7 +86,7 @@ function eakb_get_resource_icon($type) {
     position: relative;
     z-index: 2;
     width: 100%;
-    padding: 4rem 0;
+    padding: 0; /* Remove extra padding since hero now has 150px */
 }
 
 .eakb-article-header {
@@ -370,8 +373,9 @@ function eakb_get_resource_icon($type) {
         font-size: 1.2rem;
     }
     
-    .eakb-hero-content {
-        padding: 3rem 0;
+    .eakb-article-hero {
+        padding: 100px 0; /* Reduce padding on mobile */
+        border-radius: 0px 0px 60px 0px; /* Smaller radius on mobile */
     }
     
     .eakb-article-details {
