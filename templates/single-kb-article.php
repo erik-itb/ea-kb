@@ -52,7 +52,8 @@ function eakb_get_resource_icon($type) {
 /* Updated Hero Section - Full Width with Background Image */
 .eakb-article-hero {
     position: relative;
-    width: 100%;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
     min-height: 70vh;
     display: flex;
     align-items: center;
@@ -173,6 +174,26 @@ function eakb_get_resource_icon($type) {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+/* Author information styling */
+.eakb-author-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.eakb-author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.eakb-author-name {
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 15px;
 }
 
 .eakb-article-date {
@@ -413,7 +434,9 @@ function eakb_get_resource_icon($type) {
     
     <?php while (have_posts()) : the_post(); ?>
         
-        <!-- Hero Section with Large Background Image -->
+    </div> <!-- Close any container before hero -->
+    
+        <!-- Hero Section with Large Background Image (Full Width) -->
         <section class="eakb-article-hero">
             <?php 
             // Get featured image or use a default background
@@ -465,18 +488,34 @@ function eakb_get_resource_icon($type) {
 
         <!-- Article Meta Information (below hero) -->
         <section class="eakb-article-meta-section">
-            <div class="eakb-article-details">
-                <span class="eakb-article-date">
-                    <?php printf(__('Published: %s', 'energy-alabama-kb'), get_the_date()); ?>
-                </span>
-                
-                <?php if ($spanish_available && $spanish_post_id): ?>
-                    <a href="<?php echo esc_url(get_permalink($spanish_post_id)); ?>" class="eakb-spanish-link">
-                        <?php _e('Ver en español', 'energy-alabama-kb'); ?>
-                    </a>
-                <?php endif; ?>
+            <div class="eakb-container">
+                <div class="eakb-article-details">
+                    <?php
+                    // Get author information
+                    $author_id = get_the_author_meta('ID');
+                    $author_name = get_the_author_meta('display_name');
+                    $author_avatar = get_avatar_url($author_id, array('size' => 40));
+                    ?>
+                    
+                    <div class="eakb-author-info">
+                        <img src="<?php echo esc_url($author_avatar); ?>" alt="<?php echo esc_attr($author_name); ?>" class="eakb-author-avatar">
+                        <span class="eakb-author-name"><?php echo esc_html($author_name); ?></span>
+                    </div>
+                    
+                    <span class="eakb-article-date">
+                        <?php echo get_the_date('M j, Y'); ?>
+                    </span>
+                    
+                    <?php if ($spanish_available && $spanish_post_id): ?>
+                        <a href="<?php echo esc_url(get_permalink($spanish_post_id)); ?>" class="eakb-spanish-link">
+                            <?php _e('Ver en español', 'energy-alabama-kb'); ?>
+                        </a>
+                    <?php endif; ?>
+                </div>
             </div>
         </section>
+    
+    <div class="eakb-container"> <!-- Reopen container for rest of content -->
 
         <!-- Article Content -->
         <section class="eakb-article-content">
