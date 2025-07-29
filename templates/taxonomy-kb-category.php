@@ -52,7 +52,14 @@ $category_color = eakb_get_category_color($category_slug);
     
     <!-- Category Hero Section -->
     <section class="eakb-category-hero" style="--category-color: <?php echo esc_attr($category_color); ?>;">
-        <div class="eakb-hero-background"></div>
+        <?php 
+        // Try to get a category-specific background image, fallback to default
+        $category_image = get_term_meta($current_category->term_id, '_category_image', true);
+        $default_image = EAKB_PLUGIN_URL . 'assets/images/default-category-hero.jpg';
+        $hero_image = $category_image ? $category_image : $default_image;
+        ?>
+        
+        <div class="eakb-hero-background" style="background-image: url('<?php echo esc_url($hero_image); ?>');"></div>
         <div class="eakb-hero-overlay"></div>
         
         <div class="eakb-hero-content">
