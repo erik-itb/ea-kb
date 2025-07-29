@@ -100,7 +100,7 @@ function eakb_get_resource_icon($type) {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .eakb-article-category a,
@@ -111,33 +111,31 @@ function eakb_get_resource_icon($type) {
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .eakb-article-category a {
-    background: rgba(59, 130, 246, 0.3);
-    color: #93c5fd;
+    background: #dbeafe;
+    color: #1e40af;
 }
 
 .eakb-difficulty-beginner {
-    background: rgba(34, 197, 94, 0.3);
-    color: #86efac;
+    background: #dcfce7;
+    color: #166534;
 }
 
 .eakb-difficulty-intermediate {
-    background: rgba(251, 191, 36, 0.3);
-    color: #fde047;
+    background: #fef3c7;
+    color: #92400e;
 }
 
 .eakb-difficulty-advanced {
-    background: rgba(239, 68, 68, 0.3);
-    color: #fca5a5;
+    background: #fee2e2;
+    color: #dc2626;
 }
 
 .eakb-article-read-time {
-    background: rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 0.9);
+    background: #f3f4f6;
+    color: #374151;
 }
 
 .eakb-article-title {
@@ -226,8 +224,9 @@ function eakb_get_resource_icon($type) {
 }
 
 .eakb-main-content {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 20px;
     font-size: 1.1rem;
     line-height: 1.7;
     color: #374151;
@@ -246,9 +245,9 @@ function eakb_get_resource_icon($type) {
 }
 
 .eakb-resources-section {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 60px auto 0;
-    padding-top: 60px;
+    padding: 60px 20px 0;
     border-top: 2px solid #e5e7eb;
 }
 
@@ -450,31 +449,6 @@ function eakb_get_resource_icon($type) {
             
             <div class="eakb-hero-content">
                 <div class="eakb-article-header">
-                    <div class="eakb-article-meta">
-                        <?php
-                        $categories = get_the_terms(get_the_ID(), 'kb_category');
-                        if ($categories && !is_wp_error($categories)):
-                        ?>
-                            <span class="eakb-article-category">
-                                <a href="<?php echo esc_url(get_term_link($categories[0])); ?>">
-                                    <?php echo esc_html($categories[0]->name); ?>
-                                </a>
-                            </span>
-                        <?php endif; ?>
-                        
-                        <?php if ($difficulty): ?>
-                            <span class="eakb-article-difficulty eakb-difficulty-<?php echo esc_attr($difficulty); ?>">
-                                <?php echo esc_html(ucfirst($difficulty)); ?>
-                            </span>
-                        <?php endif; ?>
-                        
-                        <?php if ($read_time): ?>
-                            <span class="eakb-article-read-time">
-                                <?php printf(__('%d min read', 'energy-alabama-kb'), $read_time); ?>
-                            </span>
-                        <?php endif; ?>
-                    </div>
-                    
                     <h1 class="eakb-article-title"><?php the_title(); ?></h1>
                     
                     <?php if (has_excerpt()): ?>
@@ -489,6 +463,32 @@ function eakb_get_resource_icon($type) {
         <!-- Article Meta Information (below hero) -->
         <section class="eakb-article-meta-section">
             <div class="eakb-container">
+                <!-- Pills Section -->
+                <div class="eakb-article-meta">
+                    <?php
+                    $categories = get_the_terms(get_the_ID(), 'kb_category');
+                    if ($categories && !is_wp_error($categories)):
+                    ?>
+                        <span class="eakb-article-category">
+                            <a href="<?php echo esc_url(get_term_link($categories[0])); ?>">
+                                <?php echo esc_html($categories[0]->name); ?>
+                            </a>
+                        </span>
+                    <?php endif; ?>
+                    
+                    <?php if ($difficulty): ?>
+                        <span class="eakb-article-difficulty eakb-difficulty-<?php echo esc_attr($difficulty); ?>">
+                            <?php echo esc_html(ucfirst($difficulty)); ?>
+                        </span>
+                    <?php endif; ?>
+                    
+                    <?php if ($read_time): ?>
+                        <span class="eakb-article-read-time">
+                            <?php printf(__('%d min read', 'energy-alabama-kb'), $read_time); ?>
+                        </span>
+                    <?php endif; ?>
+                </div>
+                
                 <div class="eakb-article-details">
                     <?php
                     // Get author information
