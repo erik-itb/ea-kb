@@ -139,11 +139,11 @@ function eakb_get_document_icon($type) {
                         return $order_a - $order_b;
                     });
                     
-                    foreach ($document_categories as $category): 
+                    foreach ($document_categories as $category_index => $category): 
                         if (!empty($category['documents']) && is_array($category['documents'])):
                     ?>
                         <div class="eakb-document-category">
-                            <div class="eakb-category-header">
+                            <div class="eakb-category-header" data-accordion-target="category-<?php echo esc_attr($category_index); ?>">
                                 <h4 class="eakb-category-title">
                                     <?php echo esc_html($category['name']); ?>
                                 </h4>
@@ -152,50 +152,57 @@ function eakb_get_document_icon($type) {
                                         <?php echo esc_html($category['description']); ?>
                                     </p>
                                 <?php endif; ?>
+                                
+                                <!-- Accordion Icon -->
+                                <svg class="eakb-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6,9 12,15 18,9"></polyline>
+                                </svg>
                             </div>
                             
-                            <div class="eakb-documents-list">
-                                <?php foreach ($category['documents'] as $document): ?>
-                                    <div class="eakb-document-item">
-                                        <div class="eakb-document-icon">
-                                            <?php echo eakb_get_document_icon($document['type']); ?>
-                                        </div>
-                                        
-                                        <div class="eakb-document-content">
-                                            <h5 class="eakb-document-title">
-                                                <a href="<?php echo esc_url($document['url']); ?>" target="_blank" rel="noopener">
-                                                    <?php echo esc_html($document['title']); ?>
-                                                </a>
-                                            </h5>
+                            <div class="eakb-accordion-content" id="category-<?php echo esc_attr($category_index); ?>">
+                                <div class="eakb-documents-list">
+                                    <?php foreach ($category['documents'] as $document): ?>
+                                        <div class="eakb-document-item">
+                                            <div class="eakb-document-icon">
+                                                <?php echo eakb_get_document_icon($document['type']); ?>
+                                            </div>
                                             
-                                            <div class="eakb-document-meta">
-                                                <?php if (!empty($document['date'])): ?>
-                                                    <span class="eakb-document-date">
-                                                        <strong><?php _e('Date:', 'energy-alabama-kb'); ?></strong>
-                                                        <?php echo esc_html(date('M j, Y', strtotime($document['date']))); ?>
-                                                    </span>
-                                                <?php endif; ?>
+                                            <div class="eakb-document-content">
+                                                <h5 class="eakb-document-title">
+                                                    <a href="<?php echo esc_url($document['url']); ?>" target="_blank" rel="noopener">
+                                                        <?php echo esc_html($document['title']); ?>
+                                                    </a>
+                                                </h5>
                                                 
-                                                <?php if (!empty($document['file_size'])): ?>
-                                                    <span class="eakb-document-size">
-                                                        <strong><?php _e('Size:', 'energy-alabama-kb'); ?></strong>
-                                                        <?php echo esc_html($document['file_size']); ?>
+                                                <div class="eakb-document-meta">
+                                                    <?php if (!empty($document['date'])): ?>
+                                                        <span class="eakb-document-date">
+                                                            <strong><?php _e('Date:', 'energy-alabama-kb'); ?></strong>
+                                                            <?php echo esc_html(date('M j, Y', strtotime($document['date']))); ?>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                    
+                                                    <?php if (!empty($document['file_size'])): ?>
+                                                        <span class="eakb-document-size">
+                                                            <strong><?php _e('Size:', 'energy-alabama-kb'); ?></strong>
+                                                            <?php echo esc_html($document['file_size']); ?>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                    
+                                                    <span class="eakb-document-type">
+                                                        <?php echo esc_html($meta_fields->get_resource_type_display_name($document['type'])); ?>
                                                     </span>
-                                                <?php endif; ?>
-                                                
-                                                <span class="eakb-document-type">
-                                                    <?php echo esc_html($meta_fields->get_resource_type_display_name($document['type'])); ?>
-                                                </span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="eakb-document-actions">
+                                                <a href="<?php echo esc_url($document['url']); ?>" target="_blank" class="eakb-document-download">
+                                                    <?php _e('View', 'energy-alabama-kb'); ?>
+                                                </a>
                                             </div>
                                         </div>
-                                        
-                                        <div class="eakb-document-actions">
-                                            <a href="<?php echo esc_url($document['url']); ?>" target="_blank" class="eakb-document-download">
-                                                <?php _e('View', 'energy-alabama-kb'); ?>
-                                            </a>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
+                                    <?php endforeach; ?>
+                                </div>
                             </div>
                         </div>
                     <?php 
