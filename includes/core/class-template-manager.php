@@ -100,8 +100,48 @@ class Energy_Alabama_KB_Template_Manager {
             }
         }
 
-        // Handle taxonomy pages
-        if (is_tax(array('kb_category', 'kb_tag', 'docket_jurisdiction'))) {
+        // Handle docket archive
+        if (is_post_type_archive('docket')) {
+            $custom_template = $this->get_template('archive-docket.php');
+            if ($custom_template) {
+                return $custom_template;
+            }
+        }
+
+        // Handle specific taxonomy pages
+        if (is_tax('kb_category')) {
+            // Debug logging for taxonomy
+            file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - KB Category taxonomy detected\n", FILE_APPEND);
+            
+            $custom_template = $this->get_template('taxonomy-kb-category.php');
+            if ($custom_template) {
+                file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - Found taxonomy-kb-category.php template\n", FILE_APPEND);
+                return $custom_template;
+            } else {
+                file_put_contents(ABSPATH . 'template-debug.txt', date('Y-m-d H:i:s') . " - taxonomy-kb-category.php template NOT found\n", FILE_APPEND);
+            }
+        }
+
+        if (is_tax('kb_tag')) {
+            $custom_template = $this->get_template('taxonomy-kb-tag.php');
+            if ($custom_template) {
+                return $custom_template;
+            }
+            
+            // Fallback to generic KB taxonomy template
+            $custom_template = $this->get_template('taxonomy-kb.php');
+            if ($custom_template) {
+                return $custom_template;
+            }
+        }
+
+        if (is_tax('docket_jurisdiction')) {
+            $custom_template = $this->get_template('taxonomy-docket-jurisdiction.php');
+            if ($custom_template) {
+                return $custom_template;
+            }
+            
+            // Fallback to generic taxonomy template
             $custom_template = $this->get_template('taxonomy-kb.php');
             if ($custom_template) {
                 return $custom_template;
@@ -158,29 +198,37 @@ class Energy_Alabama_KB_Template_Manager {
             );
         }
 
-        // Enqueue on all KB content
-        if (is_singular(array('kb_article', 'docket')) || is_post_type_archive('kb_article') || is_tax(array('kb_category', 'kb_tag', 'docket_jurisdiction'))) {
+        // Enqueue on all KB content - use our frontend.css
+        if (is_singular(array('kb_article', 'docket')) || 
+            is_post_type_archive(array('kb_article', 'docket')) || 
+            is_tax(array('kb_category', 'kb_tag', 'docket_jurisdiction'))) {
+            
+            // Use our consolidated frontend.css
             wp_enqueue_style(
-                'eakb-styles',
-                EAKB_PLUGIN_URL . 'assets/css/kb-styles.css',
+                'eakb-frontend-css',
+                EAKB_PLUGIN_URL . 'assets/css/frontend.css',
                 array(),
                 EAKB_VERSION
             );
 
             wp_enqueue_script(
-                'eakb-scripts',
-                EAKB_PLUGIN_URL . 'assets/js/kb-scripts.js',
+                'eakb-frontend-js',
+                EAKB_PLUGIN_URL . 'assets/js/frontend.js',
                 array('jquery'),
                 EAKB_VERSION,
                 true
             );
 
             // Localize script for AJAX
-            wp_localize_script('eakb-scripts', 'eakb_ajax', array(
+            wp_localize_script('eakb-frontend-js', 'eakb_ajax', array(
                 'ajax_url' => admin_url('admin-ajax.php'),
-                'nonce' => wp_create_nonce('eakb_search_nonce'),
-                'search_placeholder' => __('Search knowledge base...', 'energy-alabama-kb'),
-                'no_results' => __('No results found', 'energy-alabama-kb')
+                'nonce' => wp_create_nonce('eakb_nonce'),
+                'strings' => array(
+                    'loading' => __('Loading...', 'energy-alabama-kb'),
+                    'error' => __('An error occurred. Please try again.', 'energy-alabama-kb'),
+                    'search_placeholder' => __('Search knowledge base...', 'energy-alabama-kb'),
+                    'no_results' => __('No results found', 'energy-alabama-kb')
+                )
             ));
         }
     }

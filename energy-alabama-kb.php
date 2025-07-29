@@ -25,45 +25,6 @@ define('EAKB_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('EAKB_PLUGIN_BASENAME', plugin_basename(__FILE__));
 
 /**
- * Enqueue frontend assets
- */
-function eakb_enqueue_frontend_assets() {
-    // Enqueue on KB articles, dockets, and related archive/taxonomy pages
-    if (is_singular(array('kb_article', 'docket')) || 
-        is_post_type_archive(array('kb_article', 'docket')) ||
-        is_tax(array('kb_category', 'kb_tag'))) {
-        
-        // Enqueue frontend CSS
-        wp_enqueue_style(
-            'eakb-frontend-css',
-            EAKB_PLUGIN_URL . 'assets/css/frontend.css',
-            array(),
-            EAKB_VERSION
-        );
-        
-        // Optional: Enqueue frontend JS for future features
-        wp_enqueue_script(
-            'eakb-frontend-js',
-            EAKB_PLUGIN_URL . 'assets/js/frontend.js',
-            array('jquery'),
-            EAKB_VERSION,
-            true
-        );
-        
-        // Localize script for AJAX calls if needed
-        wp_localize_script('eakb-frontend-js', 'eakb_ajax', array(
-            'ajax_url' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('eakb_nonce'),
-            'strings' => array(
-                'loading' => __('Loading...', 'energy-alabama-kb'),
-                'error' => __('An error occurred. Please try again.', 'energy-alabama-kb'),
-            )
-        ));
-    }
-}
-add_action('wp_enqueue_scripts', 'eakb_enqueue_frontend_assets');
-
-/**
  * Enqueue admin assets
  */
 function eakb_enqueue_admin_assets($hook) {
@@ -118,59 +79,6 @@ function eakb_load_textdomain() {
     );
 }
 add_action('plugins_loaded', 'eakb_load_textdomain');
-
-/**
- * Add template directory to theme template hierarchy
- */
-function eakb_template_include($template) {
-    // Check if we're on a single KB article or docket
-    if (is_singular('kb_article')) {
-        $plugin_template = EAKB_PLUGIN_DIR . 'templates/single-kb-article.php';
-        if (file_exists($plugin_template)) {
-            return $plugin_template;
-        }
-    }
-    
-    if (is_singular('docket')) {
-        $plugin_template = EAKB_PLUGIN_DIR . 'templates/single-docket.php';
-        if (file_exists($plugin_template)) {
-            return $plugin_template;
-        }
-    }
-    
-    // Check for archive templates
-    if (is_post_type_archive('kb_article')) {
-        $plugin_template = EAKB_PLUGIN_DIR . 'templates/archive-kb-article.php';
-        if (file_exists($plugin_template)) {
-            return $plugin_template;
-        }
-    }
-    
-    if (is_post_type_archive('docket')) {
-        $plugin_template = EAKB_PLUGIN_DIR . 'templates/archive-docket.php';
-        if (file_exists($plugin_template)) {
-            return $plugin_template;
-        }
-    }
-    
-    // Check for taxonomy templates
-    if (is_tax('kb_category')) {
-        $plugin_template = EAKB_PLUGIN_DIR . 'templates/taxonomy-kb-category.php';
-        if (file_exists($plugin_template)) {
-            return $plugin_template;
-        }
-    }
-    
-    if (is_tax('kb_tag')) {
-        $plugin_template = EAKB_PLUGIN_DIR . 'templates/taxonomy-kb-tag.php';
-        if (file_exists($plugin_template)) {
-            return $plugin_template;
-        }
-    }
-    
-    return $template;
-}
-add_filter('template_include', 'eakb_template_include');
 
 /**
  * Load core plugin class
