@@ -49,101 +49,152 @@ function eakb_get_resource_icon($type) {
     padding: 0 20px;
 }
 
+/* Updated Hero Section - Full Width with Background Image */
 .eakb-article-hero {
-    padding: 40px 0;
-    background: #f9fafb;
+    position: relative;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: #1a1a1a; /* Fallback color */
 }
 
-.eakb-article-featured-image {
-    margin-bottom: 30px;
-}
-
-.eakb-article-featured-image img {
+.eakb-hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
-    border-radius: 8px;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.eakb-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+.eakb-hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 4rem 0;
+}
+
+.eakb-article-header {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .eakb-article-meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 15px;
+    margin-bottom: 2rem;
 }
 
 .eakb-article-category a,
 .eakb-article-difficulty,
 .eakb-article-read-time {
-    padding: 4px 12px;
-    border-radius: 6px;
+    padding: 8px 16px;
+    border-radius: 25px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .eakb-article-category a {
-    background: #dbeafe;
-    color: #1e40af;
+    background: rgba(59, 130, 246, 0.3);
+    color: #93c5fd;
 }
 
 .eakb-difficulty-beginner {
-    background: #dcfce7;
-    color: #166534;
+    background: rgba(34, 197, 94, 0.3);
+    color: #86efac;
 }
 
 .eakb-difficulty-intermediate {
-    background: #fef3c7;
-    color: #92400e;
+    background: rgba(251, 191, 36, 0.3);
+    color: #fde047;
 }
 
 .eakb-difficulty-advanced {
-    background: #fee2e2;
-    color: #dc2626;
+    background: rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
 }
 
 .eakb-article-read-time {
-    background: #f3f4f6;
-    color: #374151;
+    background: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .eakb-article-title {
-    font-size: 2.5rem;
+    font-size: 4rem;
     font-weight: 700;
-    margin: 0 0 20px 0;
-    line-height: 1.2;
-    color: #1f2937;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.1;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+    letter-spacing: -0.02em;
 }
 
 .eakb-article-excerpt {
-    font-size: 1.25rem;
-    color: #6b7280;
-    margin-bottom: 20px;
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0;
     line-height: 1.6;
+    max-width: 800px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Meta Information Section (below hero) */
+.eakb-article-meta-section {
+    background: #f8fafc;
+    padding: 2rem 0;
+    border-bottom: 1px solid #e2e8f0;
 }
 
 .eakb-article-details {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 2rem;
     align-items: center;
-    padding-top: 20px;
-    border-top: 1px solid #e5e7eb;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .eakb-article-date {
-    color: #6b7280;
-    font-size: 14px;
+    color: #64748b;
+    font-size: 15px;
+    font-weight: 500;
 }
 
 .eakb-spanish-link {
-    color: #1e40af;
+    color: #3b82f6;
     text-decoration: none;
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .eakb-spanish-link:hover {
     text-decoration: underline;
+}
+
+.eakb-spanish-link::before {
+    content: "🇪🇸";
+    font-size: 18px;
 }
 
 .eakb-article-content {
@@ -304,13 +355,29 @@ function eakb_get_resource_icon($type) {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .eakb-article-title {
+        font-size: 3.5rem;
+    }
+}
+
 @media (max-width: 768px) {
     .eakb-article-title {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
     
     .eakb-article-excerpt {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
+    }
+    
+    .eakb-hero-content {
+        padding: 3rem 0;
+    }
+    
+    .eakb-article-details {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
     }
     
     .eakb-resource-item {
@@ -322,21 +389,39 @@ function eakb_get_resource_icon($type) {
         align-self: center;
     }
 }
+
+@media (max-width: 480px) {
+    .eakb-article-title {
+        font-size: 2rem;
+    }
+    
+    .eakb-article-excerpt {
+        font-size: 1.1rem;
+    }
+    
+    .eakb-article-meta {
+        gap: 10px;
+    }
+}
 </style>
 
 <div class="eakb-single-article">
     
     <?php while (have_posts()) : the_post(); ?>
         
-        <!-- Hero Section with Featured Image -->
+        <!-- Hero Section with Large Background Image -->
         <section class="eakb-article-hero">
-            <div class="eakb-container">
-                <?php if (has_post_thumbnail()): ?>
-                    <div class="eakb-article-featured-image">
-                        <?php the_post_thumbnail('large'); ?>
-                    </div>
-                <?php endif; ?>
-                
+            <?php 
+            // Get featured image or use a default background
+            $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
+            $default_image = get_template_directory_uri() . '/assets/images/default-kb-hero.jpg';
+            $hero_image = $featured_image ? $featured_image : $default_image;
+            ?>
+            
+            <div class="eakb-hero-background" style="background-image: url('<?php echo esc_url($hero_image); ?>');"></div>
+            <div class="eakb-hero-overlay"></div>
+            
+            <div class="eakb-hero-content">
                 <div class="eakb-article-header">
                     <div class="eakb-article-meta">
                         <?php
@@ -370,19 +455,22 @@ function eakb_get_resource_icon($type) {
                             <?php the_excerpt(); ?>
                         </div>
                     <?php endif; ?>
-                    
-                    <div class="eakb-article-details">
-                        <span class="eakb-article-date">
-                            <?php printf(__('Published: %s', 'energy-alabama-kb'), get_the_date()); ?>
-                        </span>
-                        
-                        <?php if ($spanish_available && $spanish_post_id): ?>
-                            <a href="<?php echo esc_url(get_permalink($spanish_post_id)); ?>" class="eakb-spanish-link">
-                                <?php _e('Ver en español', 'energy-alabama-kb'); ?>
-                            </a>
-                        <?php endif; ?>
-                    </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Article Meta Information (below hero) -->
+        <section class="eakb-article-meta-section">
+            <div class="eakb-article-details">
+                <span class="eakb-article-date">
+                    <?php printf(__('Published: %s', 'energy-alabama-kb'), get_the_date()); ?>
+                </span>
+                
+                <?php if ($spanish_available && $spanish_post_id): ?>
+                    <a href="<?php echo esc_url(get_permalink($spanish_post_id)); ?>" class="eakb-spanish-link">
+                        <?php _e('Ver en español', 'energy-alabama-kb'); ?>
+                    </a>
+                <?php endif; ?>
             </div>
         </section>
 
