@@ -50,7 +50,7 @@ $category_color = eakb_get_category_color($category_slug);
 
 <div class="eakb-category-archive">
     
-    <!-- Hero Section - STANDARDIZED to match main Knowledge Base page -->
+    <!-- Hero Section - EXACT COPY from main Knowledge Base page -->
     <section class="eakb-hero">
         <div class="eakb-container">
             <div class="eakb-hero-content">
@@ -72,12 +72,12 @@ $category_color = eakb_get_category_color($category_slug);
                     <form class="eakb-search-form" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
                         <div class="eakb-search-wrapper">
                             <input type="search" 
-                                   class="eakb-search-input" 
-                                   placeholder="<?php printf(__('Search %s...', 'energy-alabama-kb'), esc_attr($category_name)); ?>"
-                                   value="<?php echo get_search_query(); ?>" 
-                                   name="s" 
-                                   autocomplete="off"
-                                   aria-label="<?php printf(__('Search %s', 'energy-alabama-kb'), esc_attr($category_name)); ?>">
+                                    class="eakb-search-input" 
+                                    placeholder="<?php printf(__('Search %s...', 'energy-alabama-kb'), esc_attr($category_name)); ?>"
+                                    value="<?php echo get_search_query(); ?>" 
+                                    name="s" 
+                                    autocomplete="off"
+                                    aria-label="<?php printf(__('Search %s', 'energy-alabama-kb'), esc_attr($category_name)); ?>">
                             <input type="hidden" name="post_type" value="kb_article">
                             <input type="hidden" name="kb_category" value="<?php echo esc_attr($category_slug); ?>">
                             <button type="submit" class="eakb-search-button" aria-label="<?php esc_attr_e('Search', 'energy-alabama-kb'); ?>">

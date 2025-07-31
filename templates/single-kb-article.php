@@ -39,7 +39,7 @@ function eakb_get_resource_icon($type) {
     
     <?php while (have_posts()) : the_post(); ?>
 
-        <!-- Hero Section - STANDARDIZED to match main Knowledge Base page -->
+        <!-- Hero Section - EXACT COPY from main Knowledge Base page -->
         <section class="eakb-hero">
             <div class="eakb-container">
                 <div class="eakb-hero-content">
@@ -56,12 +56,12 @@ function eakb_get_resource_icon($type) {
                         <form class="eakb-search-form" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
                             <div class="eakb-search-wrapper">
                                 <input type="search" 
-                                       class="eakb-search-input" 
-                                       placeholder="<?php esc_attr_e('Search knowledge base...', 'energy-alabama-kb'); ?>"
-                                       value="<?php echo get_search_query(); ?>" 
-                                       name="s" 
-                                       autocomplete="off"
-                                       aria-label="<?php esc_attr_e('Search knowledge base', 'energy-alabama-kb'); ?>">
+                                        class="eakb-search-input" 
+                                        placeholder="<?php esc_attr_e('Search knowledge base...', 'energy-alabama-kb'); ?>"
+                                        value="<?php echo get_search_query(); ?>" 
+                                        name="s" 
+                                        autocomplete="off"
+                                        aria-label="<?php esc_attr_e('Search knowledge base', 'energy-alabama-kb'); ?>">
                                 <input type="hidden" name="post_type" value="kb_article">
                                 <button type="submit" class="eakb-search-button" aria-label="<?php esc_attr_e('Search', 'energy-alabama-kb'); ?>">
                                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
