@@ -50,40 +50,55 @@ $category_color = eakb_get_category_color($category_slug);
 
 <div class="eakb-category-archive">
     
-    <!-- Category Hero Section -->
-    <section class="eakb-category-hero" style="--category-color: <?php echo esc_attr($category_color); ?>;">
-        <?php 
-        // Try to get a category-specific background image, fallback to default
-        $category_image = get_term_meta($current_category->term_id, '_category_image', true);
-        $default_image = EAKB_PLUGIN_URL . 'assets/images/default-category-hero.jpg';
-        $hero_image = $category_image ? $category_image : $default_image;
-        ?>
-        
-        <div class="eakb-hero-background" style="background-image: url('<?php echo esc_url($hero_image); ?>');"></div>
-        <div class="eakb-hero-overlay"></div>
-        
-        <div class="eakb-hero-content">
-            <div class="eakb-category-header">
-                <div class="eakb-category-icon">
-                    <?php echo eakb_get_category_icon($category_slug); ?>
-                </div>
-                
-                <h1 class="eakb-category-title"><?php echo esc_html($category_name); ?></h1>
-                
-                <?php if ($category_description): ?>
-                    <div class="eakb-category-description">
-                        <?php echo esc_html($category_description); ?>
-                    </div>
-                <?php endif; ?>
+    <!-- Category Hero Section - Match Knowledge Base Main Page -->
+    <section class="eakb-hero">
+        <div class="eakb-container">
+            <div class="eakb-hero-content">
+                <h1 class="eakb-hero-title">
+                    <?php echo esc_html($category_name); ?>
+                </h1>
+                <p class="eakb-hero-description">
+                    <?php 
+                    if ($category_description) {
+                        echo esc_html($category_description);
+                    } else {
+                        printf(__('Browse all articles in the %s category', 'energy-alabama-kb'), esc_html($category_name));
+                    }
+                    ?>
+                </p>
                 
                 <div class="eakb-category-stats">
                     <?php
                     $total_posts = $wp_query->found_posts;
                     printf(
-                        _n('%d article', '%d articles', $total_posts, 'energy-alabama-kb'),
+                        _n('%d article available', '%d articles available', $total_posts, 'energy-alabama-kb'),
                         $total_posts
                     );
                     ?>
+                </div>
+                
+                <!-- Search Form -->
+                <div class="eakb-search-container">
+                    <form class="eakb-search-form" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+                        <div class="eakb-search-wrapper">
+                            <input type="search" 
+                                   class="eakb-search-input" 
+                                   placeholder="<?php printf(__('Search %s...', 'energy-alabama-kb'), esc_attr($category_name)); ?>"
+                                   value="<?php echo get_search_query(); ?>" 
+                                   name="s" 
+                                   autocomplete="off"
+                                   aria-label="<?php printf(__('Search %s', 'energy-alabama-kb'), esc_attr($category_name)); ?>">
+                            <input type="hidden" name="post_type" value="kb_article">
+                            <input type="hidden" name="kb_category" value="<?php echo esc_attr($category_slug); ?>">
+                            <button type="submit" class="eakb-search-button" aria-label="<?php esc_attr_e('Search', 'energy-alabama-kb'); ?>">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="m21 21-4.35-4.35"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="eakb-search-results" style="display: none;"></div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -93,23 +108,8 @@ $category_color = eakb_get_category_color($category_slug);
     <section class="eakb-category-content">
         <div class="eakb-container">
             
-            <!-- Filters and Search -->
+            <!-- Filters and Sort Controls -->
             <div class="eakb-category-filters">
-                <div class="eakb-search-widget">
-                    <form role="search" method="get" class="eakb-search-form" action="<?php echo esc_url(home_url('/')); ?>">
-                        <input type="search" class="eakb-search-field" placeholder="<?php printf(__('Search %s...', 'energy-alabama-kb'), esc_attr($category_name)); ?>" value="<?php echo get_search_query(); ?>" name="s">
-                        <input type="hidden" name="post_type" value="kb_article">
-                        <input type="hidden" name="kb_category" value="<?php echo esc_attr($category_slug); ?>">
-                        <button type="submit" class="eakb-search-submit">
-                            <span class="screen-reader-text"><?php _e('Search', 'energy-alabama-kb'); ?></span>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="11" cy="11" r="8"/>
-                                <path d="m21 21-4.35-4.35"/>
-                            </svg>
-                        </button>
-                    </form>
-                </div>
-                
                 <div class="eakb-filter-controls">
                     <select class="eakb-difficulty-filter" onchange="eakb_filterByDifficulty(this.value)">
                         <option value=""><?php _e('All Difficulty Levels', 'energy-alabama-kb'); ?></option>
