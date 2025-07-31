@@ -53,27 +53,40 @@ function eakb_get_document_icon($type) {
         
     </div> <!-- Close any container before hero -->
         
-        <!-- Hero Section with Large Background Image (Full Width) -->
-        <section class="eakb-docket-hero">
-            <?php 
-            // Get featured image or use a default legal/regulatory background
-            $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
-            $default_image = get_template_directory_uri() . '/assets/images/default-docket-hero.jpg';
-            $hero_image = $featured_image ? $featured_image : $default_image;
-            ?>
-            
-            <div class="eakb-hero-background" style="background-image: url('<?php echo esc_url($hero_image); ?>');"></div>
-            <div class="eakb-hero-overlay"></div>
-            
-            <div class="eakb-hero-content">
-                <div class="eakb-docket-header">
-                    <h1 class="eakb-docket-title"><?php the_title(); ?></h1>
+        <!-- Hero Section - EXACT COPY from main Knowledge Base page -->
+        <section class="eakb-hero">
+            <div class="eakb-container">
+                <div class="eakb-hero-content">
+                    <h1 class="eakb-hero-title"><?php the_title(); ?></h1>
                     
                     <?php if (has_excerpt()): ?>
-                        <div class="eakb-docket-excerpt">
+                        <p class="eakb-hero-description">
                             <?php the_excerpt(); ?>
-                        </div>
+                        </p>
                     <?php endif; ?>
+                    
+                    <!-- Search Form -->
+                    <div class="eakb-search-container">
+                        <form class="eakb-search-form" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+                            <div class="eakb-search-wrapper">
+                                <input type="search" 
+                                        class="eakb-search-input" 
+                                        placeholder="<?php esc_attr_e('Search knowledge base...', 'energy-alabama-kb'); ?>"
+                                        value="<?php echo get_search_query(); ?>" 
+                                        name="s" 
+                                        autocomplete="off"
+                                        aria-label="<?php esc_attr_e('Search knowledge base', 'energy-alabama-kb'); ?>">
+                                <input type="hidden" name="post_type" value="kb_article">
+                                <button type="submit" class="eakb-search-button" aria-label="<?php esc_attr_e('Search', 'energy-alabama-kb'); ?>">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <path d="m21 21-4.35-4.35"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="eakb-search-results" style="display: none;"></div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
