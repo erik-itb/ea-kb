@@ -50,7 +50,7 @@ $category_color = eakb_get_category_color($category_slug);
 
 <div class="eakb-category-archive">
     
-    <!-- Category Hero Section - Match Knowledge Base Main Page -->
+    <!-- Hero Section - EXACT COPY from main Knowledge Base page -->
     <section class="eakb-hero">
         <div class="eakb-container">
             <div class="eakb-hero-content">
@@ -67,27 +67,17 @@ $category_color = eakb_get_category_color($category_slug);
                     ?>
                 </p>
                 
-                <div class="eakb-category-stats">
-                    <?php
-                    $total_posts = $wp_query->found_posts;
-                    printf(
-                        _n('%d article available', '%d articles available', $total_posts, 'energy-alabama-kb'),
-                        $total_posts
-                    );
-                    ?>
-                </div>
-                
                 <!-- Search Form -->
                 <div class="eakb-search-container">
                     <form class="eakb-search-form" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
                         <div class="eakb-search-wrapper">
                             <input type="search" 
-                                   class="eakb-search-input" 
-                                   placeholder="<?php printf(__('Search %s...', 'energy-alabama-kb'), esc_attr($category_name)); ?>"
-                                   value="<?php echo get_search_query(); ?>" 
-                                   name="s" 
-                                   autocomplete="off"
-                                   aria-label="<?php printf(__('Search %s', 'energy-alabama-kb'), esc_attr($category_name)); ?>">
+                                    class="eakb-search-input" 
+                                    placeholder="<?php printf(__('Search %s...', 'energy-alabama-kb'), esc_attr($category_name)); ?>"
+                                    value="<?php echo get_search_query(); ?>" 
+                                    name="s" 
+                                    autocomplete="off"
+                                    aria-label="<?php printf(__('Search %s', 'energy-alabama-kb'), esc_attr($category_name)); ?>">
                             <input type="hidden" name="post_type" value="kb_article">
                             <input type="hidden" name="kb_category" value="<?php echo esc_attr($category_slug); ?>">
                             <button type="submit" class="eakb-search-button" aria-label="<?php esc_attr_e('Search', 'energy-alabama-kb'); ?>">
@@ -107,6 +97,17 @@ $category_color = eakb_get_category_color($category_slug);
     <!-- Category Content -->
     <section class="eakb-category-content">
         <div class="eakb-container">
+            
+            <!-- Category Stats -->
+            <div class="eakb-category-stats" style="text-align: center; margin-bottom: 40px; color: #6b7280;">
+                <?php
+                $total_posts = $wp_query->found_posts;
+                printf(
+                    _n('%d article available', '%d articles available', $total_posts, 'energy-alabama-kb'),
+                    $total_posts
+                );
+                ?>
+            </div>
             
             <!-- Filters and Sort Controls -->
             <div class="eakb-category-filters">
