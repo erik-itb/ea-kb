@@ -50,7 +50,7 @@ $category_color = eakb_get_category_color($category_slug);
 
 <div class="eakb-category-archive">
     
-    <!-- Category Hero Section - Match Knowledge Base Main Page -->
+    <!-- Hero Section - STANDARDIZED to match main Knowledge Base page -->
     <section class="eakb-hero">
         <div class="eakb-container">
             <div class="eakb-hero-content">
@@ -66,16 +66,6 @@ $category_color = eakb_get_category_color($category_slug);
                     }
                     ?>
                 </p>
-                
-                <div class="eakb-category-stats">
-                    <?php
-                    $total_posts = $wp_query->found_posts;
-                    printf(
-                        _n('%d article available', '%d articles available', $total_posts, 'energy-alabama-kb'),
-                        $total_posts
-                    );
-                    ?>
-                </div>
                 
                 <!-- Search Form -->
                 <div class="eakb-search-container">
@@ -107,6 +97,17 @@ $category_color = eakb_get_category_color($category_slug);
     <!-- Category Content -->
     <section class="eakb-category-content">
         <div class="eakb-container">
+            
+            <!-- Category Stats -->
+            <div class="eakb-category-stats" style="text-align: center; margin-bottom: 40px; color: #6b7280;">
+                <?php
+                $total_posts = $wp_query->found_posts;
+                printf(
+                    _n('%d article available', '%d articles available', $total_posts, 'energy-alabama-kb'),
+                    $total_posts
+                );
+                ?>
+            </div>
             
             <!-- Filters and Sort Controls -->
             <div class="eakb-category-filters">

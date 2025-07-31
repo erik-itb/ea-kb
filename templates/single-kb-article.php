@@ -38,30 +38,41 @@ function eakb_get_resource_icon($type) {
 <div class="eakb-single-article">
     
     <?php while (have_posts()) : the_post(); ?>
-        
-    </div> <!-- Close any container before hero -->
-    
-        <!-- Hero Section with Large Background Image (Full Width) -->
-        <section class="eakb-article-hero">
-            <?php 
-            // Get featured image or use a default background
-            $featured_image = get_the_post_thumbnail_url(get_the_ID(), 'full');
-            $default_image = get_template_directory_uri() . '/assets/images/default-kb-hero.jpg';
-            $hero_image = $featured_image ? $featured_image : $default_image;
-            ?>
-            
-            <div class="eakb-hero-background" style="background-image: url('<?php echo esc_url($hero_image); ?>');"></div>
-            <div class="eakb-hero-overlay"></div>
-            
-            <div class="eakb-hero-content">
-                <div class="eakb-article-header">
-                    <h1 class="eakb-article-title"><?php the_title(); ?></h1>
+
+        <!-- Hero Section - STANDARDIZED to match main Knowledge Base page -->
+        <section class="eakb-hero">
+            <div class="eakb-container">
+                <div class="eakb-hero-content">
+                    <h1 class="eakb-hero-title"><?php the_title(); ?></h1>
                     
                     <?php if (has_excerpt()): ?>
-                        <div class="eakb-article-excerpt">
+                        <p class="eakb-hero-description">
                             <?php the_excerpt(); ?>
-                        </div>
+                        </p>
                     <?php endif; ?>
+                    
+                    <!-- Search Form -->
+                    <div class="eakb-search-container">
+                        <form class="eakb-search-form" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+                            <div class="eakb-search-wrapper">
+                                <input type="search" 
+                                       class="eakb-search-input" 
+                                       placeholder="<?php esc_attr_e('Search knowledge base...', 'energy-alabama-kb'); ?>"
+                                       value="<?php echo get_search_query(); ?>" 
+                                       name="s" 
+                                       autocomplete="off"
+                                       aria-label="<?php esc_attr_e('Search knowledge base', 'energy-alabama-kb'); ?>">
+                                <input type="hidden" name="post_type" value="kb_article">
+                                <button type="submit" class="eakb-search-button" aria-label="<?php esc_attr_e('Search', 'energy-alabama-kb'); ?>">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <path d="m21 21-4.35-4.35"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="eakb-search-results" style="display: none;"></div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
@@ -120,8 +131,6 @@ function eakb_get_resource_icon($type) {
                 </div>
             </div>
         </section>
-    
-    <div class="eakb-container"> <!-- Reopen container for rest of content -->
 
         <!-- Article Content -->
         <section class="eakb-article-content">
@@ -195,8 +204,6 @@ function eakb_get_resource_icon($type) {
                 </div>
             </section>
         <?php endif; ?>
-
-    </div> <!-- Close container -->
 
     <?php endwhile; ?>
     
