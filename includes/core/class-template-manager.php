@@ -175,35 +175,18 @@ class Energy_Alabama_KB_Template_Manager {
     }
 
     /**
-     * Enqueue template-specific assets
+     * Enqueue template-specific assets - UNIFIED CSS LOADING
      */
     public function enqueue_template_assets() {
         global $post;
 
-        // Enqueue KB styles on KB pages
-        if (is_page() && $post && $post->post_name === 'knowledge-base') {
-            wp_enqueue_style(
-                'eakb-landing-page',
-                EAKB_PLUGIN_URL . 'assets/css/kb-landing.css',
-                array(),
-                EAKB_VERSION
-            );
-            
-            wp_enqueue_script(
-                'eakb-landing-page',
-                EAKB_PLUGIN_URL . 'assets/js/kb-landing.js',
-                array('jquery'),
-                EAKB_VERSION,
-                true
-            );
-        }
-
-        // Enqueue on all KB content - use our frontend.css
-        if (is_singular(array('kb_article', 'docket')) || 
+        // Enqueue unified frontend CSS on ALL Knowledge Base related pages
+        if (is_page() && $post && $post->post_name === 'knowledge-base' ||
+            is_singular(array('kb_article', 'docket')) || 
             is_post_type_archive(array('kb_article', 'docket')) || 
             is_tax(array('kb_category', 'kb_tag', 'docket_jurisdiction'))) {
             
-            // Use our consolidated frontend.css
+            // Use our unified frontend.css for ALL pages
             wp_enqueue_style(
                 'eakb-frontend-css',
                 EAKB_PLUGIN_URL . 'assets/css/frontend.css',
